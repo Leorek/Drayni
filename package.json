@@ -10,8 +10,13 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@types/react": "^16.9.4",
+    "@types/react-native": "^0.60.17",
+    "frisbee": "^3.1.0",
     "react": "16.9.0",
-    "react-native": "0.61.1"
+    "react-native": "0.61.1",
+    "styled-components": "^4.4.0",
+    "wretch": "^1.5.4"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",

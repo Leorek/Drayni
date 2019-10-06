@@ -1,9 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import {ScrollView} from 'react-native';
+import {ScrollView, FlatList, View} from 'react-native';
 import {useNavigationParam} from 'react-navigation-hooks';
 import LinearGradient from 'react-native-linear-gradient';
 import Collapsible from 'react-native-collapsible';
-import Carousel from 'react-native-snap-carousel';
 import {
   MainContainer,
   TopImage,
@@ -19,6 +18,9 @@ import {
   CarouselTitle,
   ItemDisplayContainer,
   ItemDisplayImage,
+  ItemDisplayDescription,
+  ItemDisplayTitle,
+  ItemDisplayInfoContainer,
 } from './item.style';
 import {getEpisodesOfAnime} from '../../apis/kitsu.api';
 
@@ -60,23 +62,27 @@ export const ItemScreen = props => {
             <ItemDescription>{item.synopsis}</ItemDescription>
           </Collapsible>
           <ItemDescriptionViewMore
-            name={isSynopsisCollapsed ? 'arrow-down' : 'arrow-up'}
-            size={18}
+            name={isSynopsisCollapsed ? 'plus-circle' : 'minus-circle'}
+            size={24}
             onPress={() => {
               setIsSynopsisCollapsed(!isSynopsisCollapsed);
             }}></ItemDescriptionViewMore>
         </ItemDescriptionContainer>
         <CarouselContainer>
           <CarouselTitle>Episodes</CarouselTitle>
-          <Carousel
+          <FlatList
             data={episodes}
+            ItemSeparatorComponent={() => {
+              return <View style={{height: 20}}></View>;
+            }}
             renderItem={({item}) => (
-              <ItemDisplay title={item.title} poster={item.cover} />
-            )}
-            activeSlideAlignment={'start'}
-            sliderHeight={410}
-            itemHeight={135}
-            vertical></Carousel>
+              <ItemDisplay
+                title={item.title}
+                number={item.number}
+                poster={item.cover}
+                description={item.synopsis}
+              />
+            )}></FlatList>
         </CarouselContainer>
       </ScrollView>
     </MainContainer>
@@ -84,9 +90,18 @@ export const ItemScreen = props => {
 };
 
 export const ItemDisplay = props => {
+  const [isDescriptionCollapsed, setIsDescriptionCollapsed] = useState(true);
   return (
     <ItemDisplayContainer>
       <ItemDisplayImage source={{uri: props.poster}} />
+      <ItemDisplayInfoContainer>
+        <ItemDisplayTitle>Episode {props.number}</ItemDisplayTitle>
+        <Collapsible collapsed={isDescriptionCollapsed} collapsedHeight={85}>
+          <ItemDisplayDescription ellipsizeMode={'tail'}>
+            {props.description}
+          </ItemDisplayDescription>
+        </Collapsible>
+      </ItemDisplayInfoContainer>
     </ItemDisplayContainer>
   );
 };

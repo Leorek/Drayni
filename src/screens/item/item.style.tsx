@@ -48,12 +48,14 @@ export const ItemDescription = styled(Text)`
 `;
 export const ItemDescriptionViewMore = styled(Icon)`
   color: white;
-  margin-top: 10;
+  margin-top: 0;
   margin-right: 10;
-  align-self: flex-end;
+  align-self: center;
 `;
 
-export const CarouselContainer = styled(View)``;
+export const CarouselContainer = styled(View)`
+  padding-left: 10;
+`;
 
 export const CarouselTitle = styled(Text)`
   color: white;
@@ -64,11 +66,26 @@ export const CarouselTitle = styled(Text)`
 `;
 
 export const ItemDisplayContainer = styled(View)`
-  padding: 5px;
+  flex: 1;
+  flex-direction: row;
+  height: 80;
 `;
 
 export const ItemDisplayImage = styled(Image)`
-  width: 130;
-  height: 100;
+  width: 80;
   border-radius: 15;
+`;
+export const ItemDisplayInfoContainer = styled(View)`
+  flex: 1;
+  padding-left: 10;
+  padding-right: 10;
+`;
+export const ItemDisplayTitle = styled(Text)`
+  color: white;
+  font-weight: bold;
+  font-size: 16;
+`;
+export const ItemDisplayDescription = styled(Text)`
+  color: white;
+  flex-wrap: wrap;
 `;

@@ -82,6 +82,7 @@ export const getEpisodesOfAnime = async animeId => {
           item.attributes.thumbnail &&
           item.attributes.thumbnail.original,
         synopsis: item.attributes && item.attributes.synopsis,
+        number: item.attributes && item.attributes.number,
       };
     });
   }

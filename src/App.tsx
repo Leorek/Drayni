@@ -1,10 +1,15 @@
 import React from 'react';
-import {HomeScreen} from './screens/home/home.screen';
+import {StatusBar} from 'react-native';
+import {createAppContainer} from 'react-navigation';
+import {HomeNavigator} from './navigators/main.navigator';
+
+const AppNavigation = createAppContainer(HomeNavigator);
 
 const App = () => {
   return (
     <>
-      <HomeScreen />
+      <StatusBar translucent backgroundColor="transparent" />
+      <AppNavigation />
     </>
   );
 };

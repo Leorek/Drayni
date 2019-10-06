@@ -32,3 +32,29 @@ export const getLatestAnimes = async () => {
 
   return output;
 };
+
+export const getLatestAnimesAlt = async () => {
+  let output = [];
+  const res = await api
+    .url('/trending/anime')
+    .get()
+    .json();
+
+  if (res) {
+    output = res.data.map(item => {
+      return {
+        id: item.id,
+        title:
+          item.attributes &&
+          item.attributes.titles &&
+          item.attributes.titles.en,
+        cover:
+          item.attributes &&
+          item.attributes.posterImage &&
+          item.attributes.posterImage.original,
+      };
+    });
+  }
+
+  return output;
+};

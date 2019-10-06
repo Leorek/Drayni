@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import {View, Image, Text} from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export const MainContainer = styled(View)`
   flex: 1;
@@ -45,11 +46,29 @@ export const ItemDescriptionTitle = styled(Text)`
 export const ItemDescription = styled(Text)`
   color: white;
 `;
-export const BackgroundOverlay = styled(View)`
-  background-color: rgba(0, 0, 0, 0.6);
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
+export const ItemDescriptionViewMore = styled(Icon)`
+  color: white;
+  margin-top: 10;
+  margin-right: 10;
+  align-self: flex-end;
+`;
+
+export const CarouselContainer = styled(View)``;
+
+export const CarouselTitle = styled(Text)`
+  color: white;
+  font-size: 20;
+  font-weight: bold;
+  margin-left: 15px;
+  margin-bottom: 10px;
+`;
+
+export const ItemDisplayContainer = styled(View)`
+  padding: 5px;
+`;
+
+export const ItemDisplayImage = styled(Image)`
+  width: 130;
+  height: 100;
+  border-radius: 15;
 `;

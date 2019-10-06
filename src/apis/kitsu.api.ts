@@ -64,3 +64,27 @@ export const getLatestAnimesAlt = async () => {
 
   return output;
 };
+
+export const getEpisodesOfAnime = async animeId => {
+  let output = [];
+  const res = await api
+    .url(`/anime/${animeId}/episodes`)
+    .get()
+    .json();
+
+  if (res) {
+    output = res.data.map(item => {
+      return {
+        id: item.id,
+        title: item.attributes && item.attributes.canonicalTitle,
+        cover:
+          item.attributes &&
+          item.attributes.thumbnail &&
+          item.attributes.thumbnail.original,
+        synopsis: item.attributes && item.attributes.synopsis,
+      };
+    });
+  }
+
+  return output;
+};

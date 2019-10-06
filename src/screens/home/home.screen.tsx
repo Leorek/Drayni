@@ -37,7 +37,7 @@ export const HomeScreen = () => {
         <FeaturedItemTitle>{defaultItem.title}</FeaturedItemTitle>
         <FeaturedItemButton
           onPress={() => {
-            navigate('Display', {item: defaultItem});
+            navigate('Item', {item: defaultItem});
           }}>
           Go!
         </FeaturedItemButton>
@@ -49,9 +49,11 @@ export const HomeScreen = () => {
           renderItem={({item}) => (
             <ItemDisplay title={item.title} poster={item.poster} />
           )}
-          loop
+          activeSlideAlignment={'start'}
+          enableMomentum
           sliderWidth={410}
           itemWidth={120}
+          containerCustomStyle={{paddingLeft: 10}}
           onSnapToItem={idx => {
             setDefaultItem(items[idx]);
           }}></Carousel>

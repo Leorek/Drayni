@@ -73,9 +73,10 @@ export const ItemScreen = props => {
             renderItem={({item}) => (
               <ItemDisplay title={item.title} poster={item.cover} />
             )}
-            loop
-            sliderWidth={410}
-            itemWidth={135}></Carousel>
+            activeSlideAlignment={'start'}
+            sliderHeight={410}
+            itemHeight={135}
+            vertical></Carousel>
         </CarouselContainer>
       </ScrollView>
     </MainContainer>

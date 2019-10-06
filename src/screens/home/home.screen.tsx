@@ -1,54 +1,62 @@
 import React, {useState, useEffect} from 'react';
-import {FlatList} from 'react-native';
+import {useNavigation} from 'react-navigation-hooks';
+import Carousel from 'react-native-snap-carousel';
 import {
   MainContainer,
-  Title,
   CarouselTitle,
   CarouselContainer,
   ItemDisplayContainer,
   ItemDisplayImage,
-  BigCarouselContainer,
-  BigItemDisplayContainer,
-  BigItemDisplayImage,
-  BigCarouselTitle,
+  BackgroundImage,
+  BackgroundOverlay,
+  FeaturedItemContainer,
+  FeaturedItemTitle,
+  FeaturedItemButton,
 } from './home.style';
 import {getLatestAnimes, getLatestAnimesAlt} from '../../apis/kitsu.api';
 
 export const HomeScreen = () => {
+  const {navigate} = useNavigation();
   const [items, setItems] = useState([]);
-  const [itemsAlt, setItemsAlt] = useState([]);
+  const [defaultItem, setDefaultItem] = useState({});
 
   useEffect(() => {
-    getLatestAnimes().then(res => {
-      setItems(res);
-    });
     getLatestAnimesAlt().then(res => {
-      setItemsAlt(res);
+      setItems(res);
+      if (res && res[0]) {
+        setDefaultItem(res[0]);
+      }
     });
   }, []);
 
   return (
     <MainContainer>
-      {/* <Title>Home</Title> */}
-      <BigCarouselContainer>
-        <BigCarouselTitle>Latest</BigCarouselTitle>
-        <FlatList
-          horizontal
-          data={items}
-          renderItem={({item}) => (
-            <BigItemDisplay title={item.title} cover={item.cover} />
-          )}
-          keyExtractor={item => item.id}></FlatList>
-      </BigCarouselContainer>
+      <BackgroundImage source={{uri: defaultItem.poster}} />
+      <BackgroundOverlay />
+      <FeaturedItemContainer>
+        <FeaturedItemTitle>{defaultItem.title}</FeaturedItemTitle>
+        <FeaturedItemButton
+          onPress={() => {
+            navigate('Item', {item: defaultItem});
+          }}>
+          Go!
+        </FeaturedItemButton>
+      </FeaturedItemContainer>
       <CarouselContainer>
         <CarouselTitle>Following</CarouselTitle>
-        <FlatList
-          horizontal
-          data={itemsAlt}
+        <Carousel
+          data={items}
           renderItem={({item}) => (
-            <ItemDisplay title={item.title} cover={item.cover} />
+            <ItemDisplay title={item.title} poster={item.poster} />
           )}
-          keyExtractor={item => item.id}></FlatList>
+          activeSlideAlignment={'start'}
+          enableMomentum
+          sliderWidth={410}
+          itemWidth={120}
+          containerCustomStyle={{paddingLeft: 10}}
+          onSnapToItem={idx => {
+            setDefaultItem(items[idx]);
+          }}></Carousel>
       </CarouselContainer>
     </MainContainer>
   );
@@ -57,15 +65,7 @@ export const HomeScreen = () => {
 export const ItemDisplay = props => {
   return (
     <ItemDisplayContainer>
-      <ItemDisplayImage source={{uri: props.cover}} />
+      <ItemDisplayImage source={{uri: props.poster}} />
     </ItemDisplayContainer>
-  );
-};
-
-export const BigItemDisplay = props => {
-  return (
-    <BigItemDisplayContainer>
-      <BigItemDisplayImage source={{uri: props.cover}} />
-    </BigItemDisplayContainer>
   );
 };

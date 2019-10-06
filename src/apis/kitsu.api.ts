@@ -26,6 +26,7 @@ export const getLatestAnimes = async () => {
           item.attributes &&
           item.attributes.posterImage &&
           item.attributes.posterImage.original,
+        synopsis: item.attributes && item.attributes.synopsis,
       };
     });
   }
@@ -48,10 +49,40 @@ export const getLatestAnimesAlt = async () => {
           item.attributes &&
           item.attributes.titles &&
           item.attributes.titles.en,
-        cover:
+        poster:
           item.attributes &&
           item.attributes.posterImage &&
           item.attributes.posterImage.original,
+        cover:
+          item.attributes &&
+          item.attributes.coverImage &&
+          item.attributes.coverImage.original,
+        synopsis: item.attributes && item.attributes.synopsis,
+      };
+    });
+  }
+
+  return output;
+};
+
+export const getEpisodesOfAnime = async animeId => {
+  let output = [];
+  const res = await api
+    .url(`/anime/${animeId}/episodes`)
+    .get()
+    .json();
+
+  if (res) {
+    output = res.data.map(item => {
+      return {
+        id: item.id,
+        title: item.attributes && item.attributes.canonicalTitle,
+        cover:
+          item.attributes &&
+          item.attributes.thumbnail &&
+          item.attributes.thumbnail.original,
+        synopsis: item.attributes && item.attributes.synopsis,
+        number: item.attributes && item.attributes.number,
       };
     });
   }

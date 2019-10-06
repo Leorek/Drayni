@@ -26,6 +26,7 @@ export const getLatestAnimes = async () => {
           item.attributes &&
           item.attributes.posterImage &&
           item.attributes.posterImage.original,
+        synopsis: item.attributes && item.attributes.synopsis,
       };
     });
   }
@@ -48,10 +49,15 @@ export const getLatestAnimesAlt = async () => {
           item.attributes &&
           item.attributes.titles &&
           item.attributes.titles.en,
-        cover:
+        poster:
           item.attributes &&
           item.attributes.posterImage &&
           item.attributes.posterImage.original,
+        cover:
+          item.attributes &&
+          item.attributes.coverImage &&
+          item.attributes.coverImage.original,
+        synopsis: item.attributes && item.attributes.synopsis,
       };
     });
   }

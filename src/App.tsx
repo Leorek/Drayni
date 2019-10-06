@@ -2,6 +2,7 @@ import React from 'react';
 import {StatusBar} from 'react-native';
 import {createAppContainer} from 'react-navigation';
 import {HomeNavigator} from './navigators/main.navigator';
+import {HomeScreen} from './screens/home/home.screen';
 
 const AppNavigation = createAppContainer(HomeNavigator);
 

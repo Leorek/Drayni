@@ -37,7 +37,7 @@ export const HomeScreen = () => {
         <FeaturedItemTitle>{defaultItem.title}</FeaturedItemTitle>
         <FeaturedItemButton
           onPress={() => {
-            navigate('Item', {item: defaultItem});
+            navigate('Display', {item: defaultItem});
           }}>
           Go!
         </FeaturedItemButton>
